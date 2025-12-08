@@ -1,0 +1,41 @@
+[
+  {
+    "id": "evt010",
+    "title": "Community Park Cleanup",
+    "badge": "Upcomming",
+    "location": "Ramna Park, Dhaka",
+    "meetingPoint": "Main Gate Near the Fountain",
+    "date": "2025-12-25",
+    "time": "09:00",
+    "details": "A community-driven cleanup initiative focused on removing waste, trimming overgrown plants, and restoring the natural beauty of Ramna Park. Volunteers will work in teams to ensure a cleaner and greener environment for everyone to enjoy.",
+    "whatToBring": ["Gloves", "Water Bottle", "Garbage Bags"],
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_9VEp0gUuAq8m8RXvWIc-YVCmUXOvL9KOGg&s",
+    "participants": 72
+  },
+  {
+    "id": "evt011",
+    "title": "Public Health Awareness Camp",
+    "badge": "Upcomming",
+    "location": "Mirpur DOHS Community Center",
+    "meetingPoint": "Main Reception Area",
+    "date": "2026-01-02",
+    "time": "10:00",
+    "details": "A health awareness program offering free checkups, basic diagnostics, and expert consultations. Participants will receive guidance on nutrition, exercise, mental wellness, and preventive healthcare to promote a healthier lifestyle.",
+    "whatToBring": ["Health Card (if any)", "Notebook", "Water Bottle"],
+    "image": "https://i.pinimg.com/1200x/61/61/e8/6161e8bee64ae32bbf34f0ecd9099a11.jpg",
+    "participants": 120
+  },
+  {
+    "id": "evt012",
+    "title": "Charity Book Fair",
+    "badge": "Upcomming",
+    "location": "Shilpakala Academy, Dhaka",
+    "meetingPoint": "Hall Room - 3 Entrance",
+    "date": "2026-01-10",
+    "time": "11:00",
+    "details": "A charity book fair aimed at promoting literacy and supporting underprivileged students. Visitors can donate books, buy from a wide selection of affordable titles, and participate in reading sessions and storytelling activities.",
+    "whatToBring": ["Old Books for Donation", "Eco-friendly Bag"],
+    "image": "https://i.pinimg.com/1200x/40/63/a3/4063a3664388babfeda02f85f7579f47.jpg",
+    "participants": 95
+  }
+]
