@@ -6,10 +6,12 @@ import SingleCardDetails from "../Components/Events-page-Cards/SingleCardDetails
 import Auth from "../Components/Login/Auth";
 import Login from "../Components/Login/Login";
 import Register from "../Components/Login/Register";
+import Loading from "../Components/Loading/Loading";
 const router = createBrowserRouter([
   {
     path: "/",
     Component: Root,
+    HydrateFallback: Loading,
     children: [
       {
         index: true,
@@ -20,17 +22,20 @@ const router = createBrowserRouter([
   },
   {
     path: "/events",
+    HydrateFallback: Loading,
     Component: Events,
     loader: () => fetch("/events.json"),
   },
   {
     path: "/events/:id",
+    HydrateFallback: Loading,
     Component: SingleCardDetails,
     loader: () => fetch("/events.json"),
   },
   {
     path: "/auth",
     Component: Auth,
+    HydrateFallback: Loading,
     children: [
       {
         path: "/auth/login",

@@ -1,10 +1,10 @@
-import { Link, NavLink } from "react-router";
+import { Link, Navigate, NavLink } from "react-router";
 import logo from "../../assets/logo.png";
 import "./Navbar.css";
 import { AuthContext } from "../../FirebaseAuthentication/AuthContext";
 import { useContext } from "react";
 const Navbar = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   const navlink = (
     <div className="flex lg:flex-row flex-col lg:space-x-3">
       <li className="text-lg font-medium hover:text-green-400">
@@ -13,10 +13,6 @@ const Navbar = () => {
       <li className="text-lg font-medium hover:text-green-400">
         <NavLink to="/events">Upcomming Events</NavLink>
       </li>
-      <li className="text-lg font-medium hover:text-green-400">
-        <NavLink to="/joinedevents">Joined Events</NavLink>
-      </li>
-      {/* <button className="btn lg:px-6 lg:py-2 rounded text-white bg-green-700 hover:bg-green-800 font-semibold text-[16px]">Create Event</button> */}
     </div>
   );
   return (
@@ -63,21 +59,33 @@ const Navbar = () => {
                   <img src={user?.photoURL} alt="User" />
                 </div>
               </summary>
-              <ul className="menu dropdown-content mt-3 z-1 p-2 shadow bg-base-100 rounded-box w-52 space-y-1.5">
+              <ul className="menu dropdown-content mt-3 z-1 p-2 shadow-md bg- rounded-box w-52 space-y-1.5">
+                {/* create event */}
                 <li>
-                  <button
-                    // onClick={logOut}
-                    className="btn btn-sm bg-linear-to-r from-emerald-700 to-lime-500 text-white"
-                  >
-                    Sign Out
+                  <button className="btn btn-sm bg-linear-to-r from-green-700 to-emerald-500 text-white">
+                    Create Event
                   </button>
                 </li>
+                {/* joined event */}
+                <li>
+                  <button className="btn btn-sm bg-linear-to-r from-green-700 to-emerald-500 text-white">
+                   Joined event
+                  </button>
+                </li>
+                {/* manage event */}
+                <li>
+                  <button className="btn btn-sm bg-linear-to-r from-green-700 to-emerald-500 text-white">
+                    Manage Event
+                  </button>
+                </li>
+
+                {/* log out */}
                 <li>
                   <button
-                    // onClick={logOut}
-                    className="btn btn-sm bg-linear-to-r from-green-700 to-emerald-500 text-white"
+                    onClick={logOut}
+                    className="btn btn-sm bg-linear-to-r from-rose-700 to-red-500 text-white"
                   >
-                    Create Event
+                    Sign Out
                   </button>
                 </li>
               </ul>

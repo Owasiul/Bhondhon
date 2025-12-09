@@ -1,9 +1,14 @@
 
 import { Calendar, MapPin, Users } from "lucide-react";
 import React from "react";
+import { useNavigate } from "react-router";
 
 const EventsCards = ({ events }) => {
-  const { image, title, badge , location, date, participants} = events;
+  const { image, title, badge , location, date, participants, id} = events;
+  const navigate = useNavigate()
+  const handleNavigate = () =>{
+    navigate(`/events/${id}`)
+  }
   return (
     <div>
       <div className="card md:w-96 w-full h-96 bg-lime-50 shadow-lg ">
@@ -39,7 +44,7 @@ const EventsCards = ({ events }) => {
           </div>
 
           <div className="card-actions justify-end mt-4">
-            <button className="btn w-full rounded-xl text-lg bg-green-700 text-white hover:bg-green-900">Join Event</button>
+            <button onClick={handleNavigate} className="btn w-full rounded-xl text-lg bg-green-700 text-white hover:bg-green-900">Join Event</button>
           </div>
         </div>
       </div>

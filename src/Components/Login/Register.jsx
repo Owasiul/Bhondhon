@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../../FirebaseAuthentication/AuthContext";
 
 const Register = () => {
   const { createUser, googleSignIn, setUser, updateUserData } =
     useContext(AuthContext);
-
+  const navegate = useNavigate();
   const handleRegisterWithEmail_Password = (event) => {
     event.preventDefault();
 
@@ -15,22 +15,42 @@ const Register = () => {
     const password = event.target.password.value;
 
     // create User
-    createUser(email, password).then((res) => {
-      const user = res.user;
+    createUser(email, password)
+      .then((res) => {
+        const user = res.user;
 
-      updateUserData(user, {
-        displayName: name,
-        photoURL: image,
-      }).then(() => {
-        setUser({
-          ...user,
+        // pass only the update object to updateUserData
+        updateUserData({
           displayName: name,
           photoURL: image,
-        });
-        event.target.reset();
+        })
+          .then(() => {
+            setUser({
+              ...user,
+              displayName: name,
+              photoURL: image,
+            });
+            navegate("/");
+            event.target.reset();
+          })
+          .catch((err) => {
+            console.error("Failed to update profile:", err);
+          });
+      })
+      .catch((err) => {
+        console.error("Failed to create user:", err);
       });
-    });
   };
+  // handle google register
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then((result) => {
+        setUser(result.user);
+        navegate("/");
+      })
+      .catch((err) => console.error("Google sign-in failed:", err));
+  };
+
   return (
     <div>
       <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
@@ -115,7 +135,7 @@ const Register = () => {
             {/* Google Sign Up Button */}
             <button
               className="btn btn-outline w-full flex items-center justify-center gap-2"
-              //   onClick={handleGoogleSignIn}
+              onClick={handleGoogleSignIn}
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path

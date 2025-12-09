@@ -1,7 +1,46 @@
-import React from "react";
-import { Link } from "react-router";
+import React, { use } from "react";
+import { Link, useNavigate } from "react-router";
+import { AuthContext } from "../../FirebaseAuthentication/AuthContext";
 
 const Login = () => {
+  const { signInUser, googleSignIn, updateUserData, setUser } =
+    use(AuthContext);
+  const navigate = useNavigate();
+  // sign In with email and password
+  const handleSignInUser = (event) => {
+    event.preventDefault();
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+    signInUser(email, password).then((res) => {
+      const user = res.user;
+      updateUserData(user, {
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+      }).then(() => {
+        setUser({
+          ...user,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        });
+        navigate("/");
+        event.target.reset();
+      });
+    });
+  };
+  // handle google signIn
+  const handleGoogleSignIn = (event) => {
+    event.preventDefault();
+    googleSignIn().then((userInfo) => {
+      const user = userInfo.user;
+      if (user) {
+        navigate("/");
+        updateUserData({
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        });
+      }
+    });
+  };
   return (
     <div>
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
@@ -19,7 +58,7 @@ const Login = () => {
               </Link>
             </p>
 
-            <form>
+            <form onSubmit={handleSignInUser}>
               {/* Email Input */}
               <div className="form-control w-full">
                 <label className="label">
@@ -64,7 +103,7 @@ const Login = () => {
 
             {/* Google Sign In Button */}
             <button
-              //   onClick={handleGoogleSignIn}
+              onClick={handleGoogleSignIn}
               className="btn btn-outline w-full flex items-center justify-center gap-2"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
