@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Calendar,
   Clock,
@@ -9,7 +8,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router";
 const Detailspage = ({ detailsInfo }) => {
-//   console.log(detailsInfo);
+  //   console.log(detailsInfo);
   const {
     title,
     badge,
@@ -21,13 +20,12 @@ const Detailspage = ({ detailsInfo }) => {
     whatToBring,
     image,
     participants,
-    organizationName
+    organizationName,
   } = detailsInfo;
 
   return (
     <div>
       <div className="min-h-screen bg-white">
-        
         {/* --- Event Hero Section --- */}
         <figure className="relative w-full ">
           <img
@@ -47,12 +45,12 @@ const Detailspage = ({ detailsInfo }) => {
         <div className="container mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-3 gap-10">
           {/* --- Left Column: Event Details --- */}
           <Link
-          to="/events"
-              className="lg:hidden flex items-center text-green-700 hover:text-green-800 font-semibold"
-            >
-              <ArrowLeft className="w-5 h-5 mr-2" />
-              Back to Events
-            </Link>
+            to="/events"
+            className="lg:hidden flex items-center text-green-700 hover:text-green-800 font-semibold"
+          >
+            <ArrowLeft className="w-5 h-5 mr-2" />
+            Back to Events
+          </Link>
           <div className="lg:col-span-2">
             <section className="mb-8">
               <h2 className="text-2xl font-bold mb-4">About This Event</h2>
@@ -73,7 +71,7 @@ const Detailspage = ({ detailsInfo }) => {
             </section>
 
             <Link
-            to="/events"
+              to="/events"
               className="lg:flex hidden items-center text-green-700 hover:text-green-800 font-semibold"
             >
               <ArrowLeft className="w-5 h-5 mr-2" />
@@ -126,7 +124,9 @@ const Detailspage = ({ detailsInfo }) => {
 
               {/* Action Buttons */}
               <div className="mt-6 space-y-3">
-                <button className="btn btn-success w-full bg-green-600 hover:bg-green-700 border-none text-white text-lg font-bold">
+                <button
+                  className="btn btn-success w-full bg-green-600 hover:bg-green-700 border-none text-white text-lg font-bold"
+                >
                   Join This Event
                 </button>
                 <button className="btn btn-outline btn-success w-full border-green-600 text-green-600 hover:bg-green-100">

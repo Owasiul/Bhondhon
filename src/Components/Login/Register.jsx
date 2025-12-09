@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../../FirebaseAuthentication/AuthContext";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const { createUser, googleSignIn, setUser, updateUserData } =
@@ -17,6 +18,13 @@ const Register = () => {
     // create User
     createUser(email, password)
       .then((res) => {
+        const regularExpression =
+          /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+        if (!regularExpression.test(password)) {
+          toast.error(
+            "Make sure your password includes Number, Small & Capital letter, Special character. Password should be Min 6 to 16 letters "
+          );
+        }
         const user = res.user;
 
         // pass only the update object to updateUserData
