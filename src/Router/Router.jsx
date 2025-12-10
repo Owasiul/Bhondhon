@@ -9,6 +9,7 @@ import Register from "../Components/Login/Register";
 import Loading from "../Components/Loading/Loading";
 import PrivateRoute from "../FirebaseAuthentication/PrivateRoute";
 import JoinedEvent from "../Components/JoinedEvent/JoinedEvent";
+import ManageEvent from "../Components/ManageEvent/ManageEvent";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -51,11 +52,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/joinedevent",
-    element: (
-      <PrivateRoute>
-        <JoinedEvent></JoinedEvent>
-      </PrivateRoute>
-    ),
+    element: <JoinedEvent></JoinedEvent>,
+  },
+  {
+    path: "/manageevent",
+    Component: ManageEvent,
   },
 ]);
 export default router;

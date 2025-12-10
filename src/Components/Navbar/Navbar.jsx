@@ -9,6 +9,9 @@ const Navbar = () => {
   const handleJoinedEvent = () => {
     navigate("/joinedevent");
   };
+  const handleManageEvent = () => {
+    navigate("/manageevent");
+  };
   const navlink = (
     <div className="flex lg:flex-row flex-col lg:space-x-3">
       <li className="text-lg font-medium hover:text-green-400">
@@ -63,7 +66,7 @@ const Navbar = () => {
                   <img src={user?.photoURL} alt="User" />
                 </div>
               </summary>
-              <ul className="menu dropdown-content mt-3 z-1 p-2 shadow-md bg- rounded-box w-52 space-y-1.5">
+              <ul className="menu dropdown-content mt-3 z-1 p-2 shadow-md bg-gray-200 rounded-box w-52 space-y-1.5">
                 {/* create event */}
                 <li>
                   <button className="btn btn-sm bg-linear-to-r from-green-700 to-emerald-500 text-white">
@@ -78,7 +81,7 @@ const Navbar = () => {
                 </li>
                 {/* manage event */}
                 <li>
-                  <button className="btn btn-sm bg-linear-to-r from-green-700 to-emerald-500 text-white">
+                  <button onClick={handleManageEvent} className="btn btn-sm bg-linear-to-r from-green-700 to-emerald-500 text-white">
                     Manage Event
                   </button>
                 </li>
