@@ -1,10 +1,14 @@
-import { Link, Navigate, NavLink } from "react-router";
+import { Link, Navigate, NavLink, useNavigate } from "react-router";
 import logo from "../../assets/logo.png";
 import "./Navbar.css";
 import { AuthContext } from "../../FirebaseAuthentication/AuthContext";
 import { useContext } from "react";
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handleJoinedEvent = () => {
+    navigate("/joinedevent");
+  };
   const navlink = (
     <div className="flex lg:flex-row flex-col lg:space-x-3">
       <li className="text-lg font-medium hover:text-green-400">
@@ -68,8 +72,8 @@ const Navbar = () => {
                 </li>
                 {/* joined event */}
                 <li>
-                  <button className="btn btn-sm bg-linear-to-r from-green-700 to-emerald-500 text-white">
-                   Joined event
+                  <button onClick={handleJoinedEvent} className="btn btn-sm bg-linear-to-r from-green-700 to-emerald-500 text-white">
+                    Joined event
                   </button>
                 </li>
                 {/* manage event */}

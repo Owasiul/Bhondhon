@@ -13,7 +13,7 @@ import { auth } from "../Firebase/Firebase.config";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [Loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
 //   create and signIn user via email and password
   const createUser = (email, password) => {
@@ -57,7 +57,7 @@ const AuthProvider = ({ children }) => {
     user,
     setUser,
     signInUser,
-    Loading,
+    loading,
     googleSignIn,
     logOut,
     updateUserData,

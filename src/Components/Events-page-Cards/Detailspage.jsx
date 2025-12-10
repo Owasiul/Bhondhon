@@ -6,8 +6,12 @@ import {
   Share2,
   ArrowLeft,
 } from "lucide-react";
-import { Link } from "react-router";
+import toast from "react-hot-toast";
+import { Link,  } from "react-router";
 const Detailspage = ({ detailsInfo }) => {
+  const joinEvent = () =>{
+    toast.success(" you have joined this event Successfully!")
+  }
   //   console.log(detailsInfo);
   const {
     title,
@@ -125,6 +129,7 @@ const Detailspage = ({ detailsInfo }) => {
               {/* Action Buttons */}
               <div className="mt-6 space-y-3">
                 <button
+                onClick={joinEvent}
                   className="btn btn-success w-full bg-green-600 hover:bg-green-700 border-none text-white text-lg font-bold"
                 >
                   Join This Event

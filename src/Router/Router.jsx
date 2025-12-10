@@ -7,6 +7,8 @@ import Auth from "../Components/Login/Auth";
 import Login from "../Components/Login/Login";
 import Register from "../Components/Login/Register";
 import Loading from "../Components/Loading/Loading";
+import PrivateRoute from "../FirebaseAuthentication/PrivateRoute";
+import JoinedEvent from "../Components/JoinedEvent/JoinedEvent";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -46,6 +48,14 @@ const router = createBrowserRouter([
         Component: Register,
       },
     ],
+  },
+  {
+    path: "/joinedevent",
+    element: (
+      <PrivateRoute>
+        <JoinedEvent></JoinedEvent>
+      </PrivateRoute>
+    ),
   },
 ]);
 export default router;
