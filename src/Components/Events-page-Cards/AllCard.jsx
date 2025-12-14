@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router";
 
 const AllCard = ({ events }) => {
-  const { image, title, badge, location, date, participants, id } = events;
+  const { image, title, badge, location, date, participants, id, _id } = events;
   return (
     <div>
       <div className="card md:w-96 w-full h-full  bg-lime-50 shadow-lg cursor-pointer  ">
@@ -41,7 +41,7 @@ const AllCard = ({ events }) => {
           </div>
 
           <div className="card-actions justify-end mt-4">
-            <Link to={`/events/${id}`} className="btn w-full rounded-xl text-lg bg-green-700 text-white hover:bg-green-900">
+            <Link to={`/events/${id || _id}`} className="btn w-full rounded-xl text-lg bg-green-700 text-white hover:bg-green-900">
               View Details
             </Link>
           </div>

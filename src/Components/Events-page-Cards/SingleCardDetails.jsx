@@ -3,8 +3,8 @@ import Detailspage from "./Detailspage";
 
 const SingleCardDetails = () => {
   const allEvents = useLoaderData();
-  const { id } = useParams();
-      const detailsInfo = allEvents.find((event) => event.id === id);
+  const { id, _id } = useParams();
+      const detailsInfo = allEvents.find((event) => event.id === id || event.id == _id);
       // console.log(Details);
   return (
     <div>

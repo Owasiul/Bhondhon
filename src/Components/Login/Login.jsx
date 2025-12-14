@@ -1,6 +1,7 @@
 import React, { use } from "react";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../../FirebaseAuthentication/AuthContext";
+import axios from "axios";
 
 const Login = () => {
   const { signInUser, googleSignIn, updateUserData, setUser } =
@@ -14,16 +15,20 @@ const Login = () => {
     signInUser(email, password).then((res) => {
       const user = res.user;
       updateUserData(user, {
+        email: user.email,
         displayName: user.displayName,
         photoURL: user.photoURL,
       }).then(() => {
-        setUser({
-          ...user,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
+        axios.post("http://localhost:3030/users", user).then(() => {
+          setUser({
+            ...user,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+            email: user.email,
+          });
+          navigate("/");
+          event.target.reset();
         });
-        navigate("/");
-        event.target.reset();
       });
     });
   };
@@ -32,13 +37,22 @@ const Login = () => {
     event.preventDefault();
     googleSignIn().then((userInfo) => {
       const user = userInfo.user;
-      if (user) {
-        navigate("/");
-        updateUserData({
+      axios
+        .post("http://localhost:3030/users", {
+          uid: user.uid,
           displayName: user.displayName,
           photoURL: user.photoURL,
+          email: user.email,
+        })
+        .then(() => {
+          if (user) {
+            navigate("/");
+            updateUserData({
+              displayName: user.displayName,
+              photoURL: user.photoURL,
+            });
+          }
         });
-      }
     });
   };
   return (

@@ -10,6 +10,7 @@ import Loading from "../Components/Loading/Loading";
 import PrivateRoute from "../FirebaseAuthentication/PrivateRoute";
 import JoinedEvent from "../Components/JoinedEvent/JoinedEvent";
 import ManageEvent from "../Components/ManageEvent/ManageEvent";
+import CreateEvent from "../Components/CreateEvent/CreateEvent";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
       {
         index: true,
         Component: Home,
-        loader: () => fetch("/futureEvents.json"),
+        loader: () => fetch("http://localhost:3030/futureevents"),
       },
     ],
   },
@@ -27,13 +28,13 @@ const router = createBrowserRouter([
     path: "/events",
     HydrateFallback: Loading,
     Component: Events,
-    loader: () => fetch("/events.json"),
+    loader: () => fetch("http://localhost:3030/events"),
   },
   {
     path: "/events/:id",
     HydrateFallback: Loading,
     Component: SingleCardDetails,
-    loader: () => fetch("/events.json"),
+    loader: () => fetch("http://localhost:3030/events"),
   },
   {
     path: "/auth",
@@ -52,11 +53,26 @@ const router = createBrowserRouter([
   },
   {
     path: "/joinedevent",
-    element: <JoinedEvent></JoinedEvent>,
+    element: (
+      <PrivateRoute>
+        {" "}
+        <JoinedEvent></JoinedEvent>
+      </PrivateRoute>
+    ),
   },
   {
     path: "/manageevent",
-    Component: ManageEvent,
+    element: (
+      <PrivateRoute>
+        <ManageEvent></ManageEvent>{" "}
+      </PrivateRoute>
+    ),
   },
+  {
+    path: "/createevent",
+    element: <PrivateRoute>
+      <CreateEvent/>
+    </PrivateRoute>
+  }
 ]);
 export default router;

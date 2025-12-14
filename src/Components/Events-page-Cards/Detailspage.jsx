@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   Calendar,
   Clock,
@@ -6,14 +7,15 @@ import {
   Share2,
   ArrowLeft,
 } from "lucide-react";
+import { useContext } from "react";
 import toast from "react-hot-toast";
-import { Link,  } from "react-router";
+import { Link } from "react-router";
+import { AuthContext } from "../../FirebaseAuthentication/AuthContext";
 const Detailspage = ({ detailsInfo }) => {
-  const joinEvent = () =>{
-    toast.success(" you have joined this event Successfully!")
-  }
+  const { user } = useContext(AuthContext);
   //   console.log(detailsInfo);
   const {
+    _id,
     title,
     badge,
     location,
@@ -25,8 +27,21 @@ const Detailspage = ({ detailsInfo }) => {
     image,
     participants,
     organizationName,
-  } = detailsInfo;
-
+  } = detailsInfo || {} ;
+  // joined event data
+  const joinEvent = () => {
+    axios
+      .post("http://localhost:3030/joinedevents", {
+        eventId: detailsInfo.id || detailsInfo._id,
+        title: detailsInfo.title,
+        image: detailsInfo.image,
+        email: user.email,
+      })
+      .then(() => {
+        // console.log(data.data);
+      });
+    toast.success(" you have joined this event Successfully!");
+  };
   return (
     <div>
       <div className="min-h-screen bg-white">
@@ -71,7 +86,7 @@ const Detailspage = ({ detailsInfo }) => {
 
             <section className="mb-10">
               <h3 className="text-xl font-bold mb-3">Meeting Point</h3>
-              <p className="text-gray-600">{meetingPoint}</p>
+              <p className="text-gray-600">{meetingPoint || location}</p>
             </section>
 
             <Link
@@ -129,7 +144,7 @@ const Detailspage = ({ detailsInfo }) => {
               {/* Action Buttons */}
               <div className="mt-6 space-y-3">
                 <button
-                onClick={joinEvent}
+                  onClick={joinEvent}
                   className="btn btn-success w-full bg-green-600 hover:bg-green-700 border-none text-white text-lg font-bold"
                 >
                   Join This Event

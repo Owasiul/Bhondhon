@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../../FirebaseAuthentication/AuthContext";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 const Register = () => {
   const { createUser, googleSignIn, setUser, updateUserData } =
@@ -14,17 +15,18 @@ const Register = () => {
     const email = event.target.email.value;
     const image = event.target.image.value;
     const password = event.target.password.value;
+    const regularExpression =
+      /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+    if (!regularExpression.test(password)) {
+      toast.error(
+        "Make sure your password includes Number, Small & Capital letter, Special character. Password should be Min 6 to 16 letters "
+      );
+      return;
+    }
 
     // create User
     createUser(email, password)
       .then((res) => {
-        const regularExpression =
-          /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
-        if (!regularExpression.test(password)) {
-          toast.error(
-            "Make sure your password includes Number, Small & Capital letter, Special character. Password should be Min 6 to 16 letters "
-          );
-        }
         const user = res.user;
 
         // pass only the update object to updateUserData
@@ -33,13 +35,23 @@ const Register = () => {
           photoURL: image,
         })
           .then(() => {
-            setUser({
-              ...user,
-              displayName: name,
-              photoURL: image,
-            });
-            navegate("/");
-            event.target.reset();
+            axios
+              .post("http://localhost:3030/users", {
+                name,
+                email,
+                image,
+                uid: user.uid,
+              })
+              .then((data) => {
+                setUser({
+                  ...user,
+                  displayName: name,
+                  photoURL: image,
+                });
+                console.log(data);
+                navegate("/");
+                event.target.reset();
+              });
           })
           .catch((err) => {
             console.error("Failed to update profile:", err);
@@ -53,8 +65,19 @@ const Register = () => {
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then((result) => {
-        setUser(result.user);
-        navegate("/");
+        const user = result.user;
+        axios
+          .post("http://localhost:3030/users", {
+            name: user.displayName,
+            email: user.email,
+            image: user.photoURL,
+            uid: user.uid,
+          })
+          .then((data) => {
+            console.log(data);
+            setUser(user);
+            navegate("/");
+          });
       })
       .catch((err) => console.error("Google sign-in failed:", err));
   };
