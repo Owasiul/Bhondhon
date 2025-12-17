@@ -42,13 +42,25 @@ const Register = () => {
                 image,
                 uid: user.uid,
               })
-              .then((data) => {
+              .then(() => {
                 setUser({
                   ...user,
                   displayName: name,
                   photoURL: image,
                 });
-                console.log(data);
+                // console.log(data);
+                axios
+                  .post("http://localhost:3030/jwt", {
+                    email: user?.email,
+                    name: user?.displayName,
+                  })
+                  .then((jwtres) => {
+                    // console.log(jwtres);
+                    localStorage.setItem(
+                      "accessToken",
+                      jwtres.data.accessToken
+                    );
+                  });
                 navegate("/");
                 event.target.reset();
               });
@@ -73,8 +85,17 @@ const Register = () => {
             image: user.photoURL,
             uid: user.uid,
           })
-          .then((data) => {
-            console.log(data);
+          .then(() => {
+            // console.log(data);
+            axios
+              .post("http://localhost:3030/jwt", {
+                email: user?.email,
+                name: user?.displayName,
+              })
+              .then((jwtres) => {
+                // console.log(jwtres);
+                localStorage.setItem("accessToken", jwtres.data.accessToken);
+              });
             setUser(user);
             navegate("/");
           });

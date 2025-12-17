@@ -52,6 +52,9 @@ const AuthProvider = ({ children }) => {
     });
     return () => unsubcribe();
   }, []);
+  if(loading){
+    return
+  }
   const authInfo = {
     createUser,
     user,

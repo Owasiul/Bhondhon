@@ -18,9 +18,9 @@ const Events = () => {
           </p>
         </div>
         {/* main cards */}
-        <div className="main-card container mx-auto mt-5 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-7">
-          {allEvents.map((events) => (
-            <AllCard key={events.id} events={events}></AllCard>
+        <div className="main-card w-[90%] mx-auto mt-5 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-7">
+          {allEvents.map((events, id) => (
+            <AllCard key={id} events={events}></AllCard>
           ))}
         </div>
       </main>

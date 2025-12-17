@@ -10,7 +10,7 @@ const EventsCards = ({ events }) => {
   };
   return (
     <div>
-      <div className="card md:w-96 w-full h-96 bg-lime-50 shadow-lg ">
+      <div className="card md:w-96 w-full h-96 bg-lime-50 shadow-lg mx-auto ">
         <figure className="relative">
           <img src={image} alt={title} className="h-56 w-full object-cover" />
           <div className="absolute right-3 top-3">

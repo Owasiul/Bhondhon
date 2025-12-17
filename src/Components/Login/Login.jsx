@@ -1,11 +1,11 @@
-import React, { use } from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../../FirebaseAuthentication/AuthContext";
 import axios from "axios";
 
 const Login = () => {
   const { signInUser, googleSignIn, updateUserData, setUser } =
-    use(AuthContext);
+    useContext(AuthContext);
   const navigate = useNavigate();
   // sign In with email and password
   const handleSignInUser = (event) => {
@@ -15,6 +15,7 @@ const Login = () => {
     signInUser(email, password).then((res) => {
       const user = res.user;
       updateUserData(user, {
+        uid: user.uid,
         email: user.email,
         displayName: user.displayName,
         photoURL: user.photoURL,
@@ -30,6 +31,15 @@ const Login = () => {
           event.target.reset();
         });
       });
+       axios
+        .post("http://localhost:3030/jwt", {
+          email: user?.email,
+          name: user?.displayName,
+        })
+        .then((jwtres) => {
+          // console.log(jwtres);
+          localStorage.setItem("accessToken", jwtres.data.accessToken);
+        });
     });
   };
   // handle google signIn
@@ -52,6 +62,15 @@ const Login = () => {
               photoURL: user.photoURL,
             });
           }
+        });
+       axios
+        .post("http://localhost:3030/jwt", {
+          email: user?.email,
+          name: user?.displayName,
+        })
+        .then((jwtres) => {
+          // console.log(jwtres);
+          localStorage.setItem("accessToken", jwtres.data.accessToken);
         });
     });
   };
