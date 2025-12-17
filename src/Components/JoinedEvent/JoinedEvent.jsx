@@ -11,7 +11,11 @@ const JoinedEvent = () => {
   useEffect(() => {
     if (user?.email) {
       axios
-        .get(`http://localhost:3030/joinedevents?email=${user.email}`)
+        .get(`http://localhost:3030/joinedevents?email=${user.email}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        })
         .then((data) => {
           setJoinedEvent(data.data);
         });
@@ -20,12 +24,9 @@ const JoinedEvent = () => {
   return (
     <div>
       <Navbar />
-      <main className="space-y-2 my-5">
+      <main className="space-y-2 my-5 w-[90%] mx-auto">
         {joinedEvent.map((userEvent) => (
-          <JoinedEventCard
-            key={userEvent._id}
-            userEvent={userEvent}
-          />
+          <JoinedEventCard key={userEvent._id} userEvent={userEvent} />
         ))}
       </main>
       <Footer />

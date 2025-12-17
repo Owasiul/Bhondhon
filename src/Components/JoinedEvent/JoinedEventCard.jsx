@@ -1,22 +1,41 @@
 import React from "react";
+import { useNavigate } from "react-router";
 
 const JoinedEventCard = ({ userEvent }) => {
-  const { title, location, date } = userEvent;
+  const { title, date } = userEvent;
+  const navigate = useNavigate();
+  const handleViewEvent = (_id) => {
+    navigate(`http://localhost:3030/events/${_id}`);
+  };
   return (
     <div>
-      <div className=" w-full bg-base-100 border border-zinc-600">
-        <div className=" flex justify-between p-5">
-          <div className="">
-            <p className="font-bold text-lg">{title}</p>
-          </div>
-          <div className="">
-            <span className="">Location: {location}</span>
-          </div>
-          <div className="">
-            <span className="">date: {date}</span>
-          </div>
-        </div>
-      </div>
+      <table className="table table-zebra">
+        {/* head */}
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Title</th>
+            <th>Manage Event</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* row 1 */}
+          <tr>
+            <td className="font-semibold text-lg">{date}</td>
+            <td className="font-bold text-lg">{title}</td>
+            <td>
+              <div
+               onClick={() => handleViewEvent(userEvent._id)}
+                className="flex lg:flex-row flex-col items-center gap-5"
+              >
+                <button className="btn btn-outline btn-success text-success font-medium hover:text-white ">
+                  View Event
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 };

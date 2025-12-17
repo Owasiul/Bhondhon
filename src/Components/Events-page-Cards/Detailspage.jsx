@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { useContext } from "react";
 import toast from "react-hot-toast";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../../FirebaseAuthentication/AuthContext";
 const Detailspage = ({ detailsInfo }) => {
   const { user } = useContext(AuthContext);
@@ -28,19 +28,32 @@ const Detailspage = ({ detailsInfo }) => {
     participants,
     organizationName,
   } = detailsInfo || {};
+  const navigete = useNavigate();
   // joined event data
   const joinEvent = () => {
+    if (!user) {
+      navigete("/auth/login");
+      return;
+    }
     axios
-      .post("http://localhost:3030/joinedevents", {
-        eventId: detailsInfo.id || detailsInfo._id,
-        title: detailsInfo.title,
-        image: detailsInfo.image,
-        email: user.email,
-      })
+      .post(
+        "http://localhost:3030/joinedevents",
+        {
+          eventId: detailsInfo.id || detailsInfo._id,
+          title: detailsInfo.title,
+          image: detailsInfo.image,
+          email: user.email,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
       .then(() => {
         // console.log(data.data);
+        toast.success(" you have joined this event Successfully!");
       });
-    toast.success(" you have joined this event Successfully!");
   };
   return (
     <div>
