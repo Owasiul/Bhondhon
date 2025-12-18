@@ -20,7 +20,7 @@ const Login = () => {
         displayName: user.displayName,
         photoURL: user.photoURL,
       }).then(() => {
-        axios.post("http://localhost:3030/users", user).then(() => {
+        axios.post("https://bondhon-server.vercel.app/users", user).then(() => {
           setUser({
             ...user,
             displayName: user.displayName,
@@ -31,8 +31,8 @@ const Login = () => {
           event.target.reset();
         });
       });
-       axios
-        .post("http://localhost:3030/jwt", {
+      axios
+        .post("https://bondhon-server.vercel.app/jwt", {
           email: user?.email,
           name: user?.displayName,
         })
@@ -48,7 +48,7 @@ const Login = () => {
     googleSignIn().then((userInfo) => {
       const user = userInfo.user;
       axios
-        .post("http://localhost:3030/users", {
+        .post("https://bondhon-server.vercel.app/users", {
           uid: user.uid,
           displayName: user.displayName,
           photoURL: user.photoURL,
@@ -63,8 +63,8 @@ const Login = () => {
             });
           }
         });
-       axios
-        .post("http://localhost:3030/jwt", {
+      axios
+        .post("https://bondhon-server.vercel.app/jwt", {
           email: user?.email,
           name: user?.displayName,
         })

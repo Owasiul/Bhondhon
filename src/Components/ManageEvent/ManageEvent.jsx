@@ -14,7 +14,7 @@ const ManageEvent = () => {
   useEffect(() => {
     if (user?.email) {
       axios
-        .get("http://localhost:3030/manageevent", {
+        .get("https://bondhon-server.vercel.app/manageevent", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
@@ -46,7 +46,7 @@ const ManageEvent = () => {
       .then((result) => {
         if (result.isConfirmed) {
           axios
-            .delete("http://localhost:3030/events", {
+            .delete("https://bondhon-server.vercel.app/events", {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
               },
@@ -65,7 +65,7 @@ const ManageEvent = () => {
       });
   };
   const handleViewEvent = (_id) => {
-    navigate(`http://localhost:3030/events/${_id}`);
+    navigate(`https://bondhon-server.vercel.app/events/${_id}`);
   };
   return (
     <div>

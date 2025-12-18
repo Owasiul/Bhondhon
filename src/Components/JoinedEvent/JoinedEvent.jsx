@@ -11,11 +11,14 @@ const JoinedEvent = () => {
   useEffect(() => {
     if (user?.email) {
       axios
-        .get(`http://localhost:3030/joinedevents?email=${user.email}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        })
+        .get(
+          `https://bondhon-server.vercel.app/joinedevents?email=${user.email}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        )
         .then((data) => {
           setJoinedEvent(data.data);
         });

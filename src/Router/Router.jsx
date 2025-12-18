@@ -20,7 +20,7 @@ const router = createBrowserRouter([
       {
         index: true,
         Component: Home,
-        loader: () => fetch("http://localhost:3030/futureevents"),
+        loader: () => fetch("https://bondhon-server.vercel.app/futureevents"),
       },
     ],
   },
@@ -28,13 +28,13 @@ const router = createBrowserRouter([
     path: "/events",
     HydrateFallback: Loading,
     Component: Events,
-    loader: () => fetch("http://localhost:3030/events"),
+    loader: () => fetch("https://bondhon-server.vercel.app/events"),
   },
   {
     path: "/events/:id",
     HydrateFallback: Loading,
     Component: SingleCardDetails,
-    loader: () => fetch("http://localhost:3030/events"),
+    loader: () => fetch("https://bondhon-server.vercel.app/events"),
   },
   {
     path: "/auth",
@@ -70,9 +70,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/createevent",
-    element: <PrivateRoute>
-      <CreateEvent/>
-    </PrivateRoute>
-  }
+    element: (
+      <PrivateRoute>
+        <CreateEvent />
+      </PrivateRoute>
+    ),
+  },
 ]);
 export default router;

@@ -34,12 +34,14 @@ const CreateEvent = () => {
       time,
       details,
     };
-    axios.post("http://localhost:3030/events", newEvent).then((data) => {
-      if (data.data.insertedId) {
-        toast.success("Your Event is created Successfull 💖");
-        event.target.reset();
-      }
-    });
+    axios
+      .post("https://bondhon-server.vercel.app/events", newEvent)
+      .then((data) => {
+        if (data.data.insertedId) {
+          toast.success("Your Event is created Successfull 💖");
+          event.target.reset();
+        }
+      });
   };
   return (
     <div>

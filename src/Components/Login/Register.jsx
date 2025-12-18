@@ -36,7 +36,7 @@ const Register = () => {
         })
           .then(() => {
             axios
-              .post("http://localhost:3030/users", {
+              .post("https://bondhon-server.vercel.app/users", {
                 name,
                 email,
                 image,
@@ -50,7 +50,7 @@ const Register = () => {
                 });
                 // console.log(data);
                 axios
-                  .post("http://localhost:3030/jwt", {
+                  .post("https://bondhon-server.vercel.app/jwt", {
                     email: user?.email,
                     name: user?.displayName,
                   })
@@ -79,7 +79,7 @@ const Register = () => {
       .then((result) => {
         const user = result.user;
         axios
-          .post("http://localhost:3030/users", {
+          .post("https://bondhon-server.vercel.app/users", {
             name: user.displayName,
             email: user.email,
             image: user.photoURL,
@@ -88,7 +88,7 @@ const Register = () => {
           .then(() => {
             // console.log(data);
             axios
-              .post("http://localhost:3030/jwt", {
+              .post("https://bondhon-server.vercel.app/jwt", {
                 email: user?.email,
                 name: user?.displayName,
               })

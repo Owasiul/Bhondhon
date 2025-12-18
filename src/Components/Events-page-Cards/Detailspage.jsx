@@ -37,7 +37,7 @@ const Detailspage = ({ detailsInfo }) => {
     }
     axios
       .post(
-        "http://localhost:3030/joinedevents",
+        "https://bondhon-server.vercel.app/joinedevents",
         {
           eventId: detailsInfo.id || detailsInfo._id,
           title: detailsInfo.title,
