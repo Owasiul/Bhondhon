@@ -25,7 +25,7 @@ const Hero = () => {
         </button>
       </div>
       {/* search bar */}
-      <label className="input mx-auto md:w-xl md:h-14 w-96 mt-3 shadow-md">
+      <label className="input mx-auto md:w-xl md:h-14 w-full mt-3 shadow-md">
         <input type="search" required placeholder="Search events based on location or name" />
         <div className="bg-green-600 p-2 rounded">
           <svg

@@ -10,11 +10,11 @@ const NewsLetter = () => {
       </p>
       <div className="flex flex-row justify-center mt-5 mb-5">
         <input
-          className="rounded-r w-96 h-12 p-3 border border-gray-300 shadow-sm focus:border-amber-600 focus:ring-2 focus:ring-amber-200 outline-none"
+          className="rounded-r sm:w-96 w-48 h-12 p-3 border border-gray-300 shadow-sm focus:border-amber-600 focus:ring-2 focus:ring-amber-200 outline-none"
           type="text"
           placeholder="Enter your Email"
         />
-        <button className="btn rounded-l bg-amber-600 h-12 px-6 text-white shadow-sm hover:bg-amber-700 transition">
+        <button className="btn rounded-l bg-amber-600 h-12 sm:px-6 px-3 text-white shadow-sm hover:bg-amber-700 transition">
           Subscribe Now
         </button>
       </div>
