@@ -110,7 +110,7 @@ const Navbar = () => {
               </ul>
             </details>
           ) : (
-            <div className="sm:space-x-3 space-y-3 flex sm:flex-row flex-col items-center justify-center ">
+            <div className="sm:space-x-3 space-x-0 space-y-3 sm:space-y-0 flex sm:flex-row flex-col items-center justify-center ">
               <Link
                 to="/auth/login"
                 className="btn md:w-28 w-20 px-4 py-2  bg-white border-green-500 font-semibold text-[16px]"
