@@ -3,10 +3,12 @@ import React from "react";
 import { useNavigate } from "react-router";
 
 const EventsCards = ({ events }) => {
-  const { image, title, badge, location, date, participants, id } = events;
+  const { image, title, badge, location, date, participants } = events;
+  const eventId = events?.id || events?._id;
   const navigate = useNavigate();
   const handleNavigate = () => {
-    navigate(`/events/${id}`);
+    if (!eventId) return;
+    navigate(`/events/${eventId}`);
   };
   return (
     <div>
@@ -49,7 +51,7 @@ const EventsCards = ({ events }) => {
               onClick={handleNavigate}
               className="btn w-full rounded-xl text-lg bg-green-700 text-white hover:bg-green-900"
             >
-             View Details
+              View Details
             </button>
           </div>
         </div>

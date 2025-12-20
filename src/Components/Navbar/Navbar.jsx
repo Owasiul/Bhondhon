@@ -55,7 +55,7 @@ const Navbar = () => {
             </ul>
           </div>
           <a className="logo">
-            <img className="object-contain w-30" src={logo} alt="" />
+            <img className="object-contain w-24 md:w-32" src={logo} alt="" />
           </a>
         </div>
         <div className="navbar-center hidden lg:flex">
@@ -110,7 +110,7 @@ const Navbar = () => {
               </ul>
             </details>
           ) : (
-            <div className="space-x-3">
+            <div className="sm:space-x-3 space-y-3 flex sm:flex-row flex-col items-center justify-center ">
               <Link
                 to="/auth/login"
                 className="btn md:w-28 w-20 px-4 py-2  bg-white border-green-500 font-semibold text-[16px]"
