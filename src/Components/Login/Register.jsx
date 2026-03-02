@@ -2,12 +2,13 @@ import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../../FirebaseAuthentication/AuthContext";
 import toast from "react-hot-toast";
-import axios from "axios";
+import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 
 const Register = () => {
   const { createUser, googleSignIn, setUser, updateUserData } =
     useContext(AuthContext);
   const navegate = useNavigate();
+  const axiosSecure = UseAxiosSecure();
   const handleRegisterWithEmail_Password = (event) => {
     event.preventDefault();
 
@@ -19,7 +20,7 @@ const Register = () => {
       /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
     if (!regularExpression.test(password)) {
       toast.error(
-        "Make sure your password includes Number, Small & Capital letter, Special character. Password should be Min 6 to 16 letters "
+        "Make sure your password includes Number, Small & Capital letter, Special character. Password should be Min 6 to 16 letters ",
       );
       return;
     }
@@ -35,8 +36,8 @@ const Register = () => {
           photoURL: image,
         })
           .then(() => {
-            axios
-              .post("https://bondhon-server.vercel.app/users", {
+            axiosSecure
+              .post("/users", {
                 name,
                 email,
                 image,
@@ -49,8 +50,8 @@ const Register = () => {
                   photoURL: image,
                 });
                 // console.log(data);
-                axios
-                  .post("https://bondhon-server.vercel.app/jwt", {
+                axiosSecure
+                  .post("/jwt", {
                     email: user?.email,
                     name: user?.displayName,
                   })
@@ -58,7 +59,7 @@ const Register = () => {
                     // console.log(jwtres);
                     localStorage.setItem(
                       "accessToken",
-                      jwtres.data.accessToken
+                      jwtres.data.accessToken,
                     );
                   });
                 navegate("/");
@@ -78,8 +79,8 @@ const Register = () => {
     googleSignIn()
       .then((result) => {
         const user = result.user;
-        axios
-          .post("https://bondhon-server.vercel.app/users", {
+        axiosSecure
+          .post("/users", {
             name: user.displayName,
             email: user.email,
             image: user.photoURL,
@@ -87,8 +88,8 @@ const Register = () => {
           })
           .then(() => {
             // console.log(data);
-            axios
-              .post("https://bondhon-server.vercel.app/jwt", {
+            axiosSecure
+              .post("/jwt", {
                 email: user?.email,
                 name: user?.displayName,
               })

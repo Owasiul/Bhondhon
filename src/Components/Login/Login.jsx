@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../../FirebaseAuthentication/AuthContext";
-import axios from "axios";
+import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 
 const Login = () => {
   const { signInUser, googleSignIn, updateUserData, setUser } =
     useContext(AuthContext);
   const navigate = useNavigate();
+  const axiosSecure = UseAxiosSecure();
   // sign In with email and password
   const handleSignInUser = (event) => {
     event.preventDefault();
@@ -20,7 +21,7 @@ const Login = () => {
         displayName: user.displayName,
         photoURL: user.photoURL,
       }).then(() => {
-        axios.post("https://bondhon-server.vercel.app/users", user).then(() => {
+        axiosSecure.post("/users", user).then(() => {
           setUser({
             ...user,
             displayName: user.displayName,
@@ -31,8 +32,8 @@ const Login = () => {
           event.target.reset();
         });
       });
-      axios
-        .post("https://bondhon-server.vercel.app/jwt", {
+      axiosSecure
+        .post("/jwt", {
           email: user?.email,
           name: user?.displayName,
         })
@@ -47,8 +48,8 @@ const Login = () => {
     event.preventDefault();
     googleSignIn().then((userInfo) => {
       const user = userInfo.user;
-      axios
-        .post("https://bondhon-server.vercel.app/users", {
+      axiosSecure
+        .post("/users", {
           uid: user.uid,
           displayName: user.displayName,
           photoURL: user.photoURL,
@@ -63,8 +64,8 @@ const Login = () => {
             });
           }
         });
-      axios
-        .post("https://bondhon-server.vercel.app/jwt", {
+      axiosSecure
+        .post("/jwt", {
           email: user?.email,
           name: user?.displayName,
         })

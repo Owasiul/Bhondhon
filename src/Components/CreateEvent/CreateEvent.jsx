@@ -6,12 +6,13 @@ import { Link } from "react-router";
 import { ArrowLeft } from "lucide-react";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
-import axios from "axios";
 import toast from "react-hot-toast";
+import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 
 const CreateEvent = () => {
   const { user } = useContext(AuthContext);
   const [startDate, setStartDate] = useState(new Date());
+  const axiosSecure = UseAxiosSecure();
   const handleCreateEvent = (event) => {
     event.preventDefault();
     const title = event.target.title.value;
@@ -34,13 +35,17 @@ const CreateEvent = () => {
       time,
       details,
     };
-    axios
-      .post("https://bondhon-server.vercel.app/events", newEvent)
+    axiosSecure
+      .post("/events", newEvent)
       .then((data) => {
         if (data.data.insertedId) {
           toast.success("Your Event is created Successfull 💖");
           event.target.reset();
         }
+      })
+      .catch((error) => {
+        console.error("Error creating event:", error);
+        toast.error(error.response?.data?.message || "Failed to create event");
       });
   };
   return (

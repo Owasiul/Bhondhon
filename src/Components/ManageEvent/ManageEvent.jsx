@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import { AuthContext } from "../../FirebaseAuthentication/AuthContext";
-import axios from "axios";
+import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
@@ -11,20 +11,15 @@ const ManageEvent = () => {
   const { user } = useContext(AuthContext);
   const [ManageEvent, setManageEvent] = useState([]);
   const navigate = useNavigate();
+  const axiosSecure = UseAxiosSecure();
   useEffect(() => {
     if (user?.email) {
-      axios
-        .get("https://bondhon-server.vercel.app/manageevent", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        })
-        .then((res) => {
-          // console.log(res.data);
-          setManageEvent(res.data);
-        });
+      axiosSecure.get("/manageevent").then((res) => {
+        // console.log(res.data);
+        setManageEvent(res.data);
+      });
     }
-  }, [user]);
+  }, [user, axiosSecure]);
   const handleDeleteEvent = () => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -45,12 +40,8 @@ const ManageEvent = () => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          axios
-            .delete("https://bondhon-server.vercel.app/events", {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-              },
-            })
+          axiosSecure
+            .delete("/events")
             .then(toast.success("Your event is deleteed successfully"));
         } else if (
           /* Read more about handling dismissals below */

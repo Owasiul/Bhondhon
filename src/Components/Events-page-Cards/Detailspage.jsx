@@ -1,4 +1,4 @@
-import axios from "axios";
+import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 import {
   Calendar,
   Clock,
@@ -13,6 +13,7 @@ import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../../FirebaseAuthentication/AuthContext";
 const Detailspage = ({ detailsInfo }) => {
   const { user } = useContext(AuthContext);
+  const axiosSecure = UseAxiosSecure();
   //   console.log(detailsInfo);
   const {
     _id,
@@ -35,21 +36,13 @@ const Detailspage = ({ detailsInfo }) => {
       navigete("/auth/login");
       return;
     }
-    axios
-      .post(
-        "https://bondhon-server.vercel.app/joinedevents",
-        {
-          eventId: detailsInfo.id || detailsInfo._id,
-          title: detailsInfo.title,
-          image: detailsInfo.image,
-          email: user.email,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      )
+    axiosSecure
+      .post("/joinedevents", {
+        eventId: detailsInfo.id || detailsInfo._id,
+        title: detailsInfo.title,
+        image: detailsInfo.image,
+        email: user.email,
+      })
       .then(() => {
         // console.log(data.data);
         toast.success(" you have joined this event Successfully!");
